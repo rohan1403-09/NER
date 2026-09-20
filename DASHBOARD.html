@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trail Sense Dashboard</title>
+</head>
+
+<body>
+
+    <main>
+
+        <h1>NIR</h1>
+        <p>Nature | Inform | Respond</p>
+
+        <!-- Notification Section -->
+        <div class="notification">
+
+            <button type="button">Notification</button>
+
+            <i><p>Real time disaster alerts</p></i>
+            <i><p>For safer you and safer planet</p></i>
+
+            <span>RAINFALL <b>16.8 mm/hr</b></span>
+            <span>SOIL MOISTURE <b>68%</b></span>
+
+        </div>
+
+        <!-- Location Search -->
+        <div class="location-search">
+
+            <h2>Search Location</h2>
+
+            <form id="locationForm">
+
+                <input
+                    type="text"
+                    id="locationInput"
+                    placeholder="Search for location"
+                    required
+                >
+
+                <button type="submit">Search</button>
+
+            </form>
+
+            <br>
+
+            <button id="currentLocationBtn" type="button">
+                📍 My Current Location
+            </button>
+
+        </div>
+
+        <br>
+
+        <!-- Google Maps -->
+        <iframe
+            id="map"
+            src="https://www.google.com/maps?q=Ghaziabad%2C%20Uttar%20Pradesh&output=embed"
+            width="600"
+            height="450"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy">
+        </iframe>
+
+    </main>
+
+
+    <script>
+
+        const locationForm = document.getElementById("locationForm");
+        const locationInput = document.getElementById("locationInput");
+        const map = document.getElementById("map");
+        const currentLocationBtn = document.getElementById("currentLocationBtn");
+
+
+        // Search Location
+        locationForm.addEventListener("submit", function (event) {
+
+            event.preventDefault();
+
+            const location = locationInput.value.trim();
+
+            if (location === "") {
+                return;
+            }
+
+            map.src =
+                "https://www.google.com/maps?q=" +
+                encodeURIComponent(location) +
+                "&output=embed";
+
+        });
+
+
+        // Get Current Location
+        currentLocationBtn.addEventListener("click", function () {
+
+            if (!navigator.geolocation) {
+
+                alert("Geolocation is not supported by your browser.");
+
+                return;
+
+            }
+
+            navigator.geolocation.getCurrentPosition(
+
+                function (position) {
+
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+
+                    // Show current location on Google Maps
+                    map.src =
+                        "https://www.google.com/maps?q=" +
+                        latitude + "," + longitude +
+                        "&output=embed";
+
+                },
+
+                function (error) {
+
+                    alert(
+                        "Unable to access your location. Please allow location permission."
+                    );
+
+                }
+
+            );
+
+        });
+
+    </script>
+
+</body>
+</html>
