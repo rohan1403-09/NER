@@ -1,59 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="page" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trail Sense</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="page-body">
 
-    <main>
+    <main class="page-main">
 
-        <section id="signInSection">
-            <h1>Welcome to Trail Sense</h1>
-            <h1><b>STAY AWARE,</b></h1>
-            <h1><b>STAY PREPARED...</b></h1>
+        <section id="signInSection" class="signin-section">
+            <h1 class="welcome-heading">Welcome to Trail Sense</h1>
+            <h1 class="aware-line"><b class="aware-text">STAY AWARE,</b></h1>
+            <h1 class="prepared-line"><b class="prepared-text">STAY PREPARED...</b></h1>
 
-            <p><i><b>An AI-Based early warning system for Landslides and Road Blockages.</b></i></p>
+            <p class="intro-text"><i class="intro-italic"><b class="intro-bold">An AI-Based early warning system for Landslides and Road Blockages.</b></i></p>
 
-            <section class="Sign in">
-                <form id="signInForm">
+            <section class="signin-content">
+                <form id="signInForm" class="signin-form">
 
-                    <div class="form">
-                        <h2>Sign in</h2>
+                    <div class="signin-fields">
+                        <h2 class="signin-heading">Sign in</h2>
 
-                        <input type="email" placeholder="Email" required>
+                        <input class="email-input" type="email" placeholder="Email" required>
 
-                        <input type="password" placeholder="Password" required>
+                        <input class="password-input" type="password" placeholder="Password" required>
 
-                        <div class="phone-number">
-                            <h2>Enter a 10 digit valid phone number</h2>
-                            <input type="tel"
+                        <div class="phone-number phone-field">
+                            <h2 class="phone-heading"><span class="phone-heading-text">Enter a 10 digit valid phone number</span></h2>
+                            <input class="phone-input" type="tel"
                             placeholder="Phone number"
                             pattern="[0-9]{10}"
                             maxlength="10"
                             required>
                         </div>
-                        <div class="Location">
-                            <h2>Enter your location</h2>
-                            <input type="text" placeholder="Location" required>
+                        <div class="Location location-field">
+                            <h2 class="location-input-heading"><span class="location-input-heading-text">Enter your location</span></h2>
+                            <input class="location-input" type="text" placeholder="Location" required>
                         </div>
-                        <div class="submit">
-                            <button type="submit">Submit</button>
+                        <div class="submit submit-field">
+                            <button class="submit-button" type="submit">Submit</button>
                         </div>
 
                     </div>
 
                 </form>
             </section>
-            <section></section>
+            <section class="signin-extra"></section>
         </section>
 
-        <section id="otpSection" hidden>
-            <h1>OTP Verification</h1>
-            <p>Please enter the OTP sent to your phone number.</p>
-            <form id="otpForm">
+        <section id="otpSection" class="otp-section" hidden>
+            <h1 class="otp-heading">OTP Verification</h1>
+            <p class="otp-instructions">Please enter the OTP sent to your phone number.</p>
+            <form id="otpForm" class="otp-form">
                 <input
+                    class="otp-input"
                     type="text"
                     id="otpInput"
                     placeholder="Enter OTP"
@@ -62,58 +64,60 @@
                     maxlength="6"
                     required
                 >
-                <button type="submit">Verify OTP</button>
+                <button class="verify-otp-button" type="submit">Verify OTP</button>
             </form>
         </section>
 
-        <section id="dashboardSection" hidden>
-            <h1>NIR</h1>
-            <p>Nature | Inform | Respond</p>
+        <section id="dashboardSection" class="dashboard-section" hidden>
+            <h1 class="dashboard-heading">NIR</h1>
+            <p class="dashboard-tagline">Nature | Inform | Respond</p>
 
             <!-- Notification Section -->
-            <div class="notification">
+            <div class="notification notification-section">
 
-                <button type="button">Notification</button>
+                <button class="notification-button" type="button">Notification</button>
 
-                <i><p>Real time disaster alerts</p></i>
-                <i><p>For safer you and safer planet</p></i>
+                <i class="alert-message"><p class="alert-text">Real time disaster alerts</p></i>
+                <i class="safety-message"><p class="safety-text">For safer you and safer planet</p></i>
 
-                <span>RAINFALL <b>16.8 mm/hr</b></span>
-                <span>SOIL MOISTURE <b>68%</b></span>
+                <span class="rainfall-value"><b class="rainfall-label">RAINFALL</b> <b class="rainfall-reading">16.8 mm/hr</b></span>
+                <span class="soil-moisture-value"><b class="soil-moisture-label">SOIL MOISTURE</b> <b class="soil-moisture-reading">68%</b></span>
 
             </div>
 
             <!-- Location Search -->
-            <div class="location-search">
+            <div class="location-search location-search-section">
 
-                <h2>Search Location</h2>
+                <h2 class="location-heading">Search Location</h2>
 
-                <form id="locationForm">
+                <form id="locationForm" class="location-form">
 
                     <input
+                        class="location-search-input"
                         type="text"
                         id="locationInput"
                         placeholder="Search for location"
                         required
                     >
 
-                    <button type="submit">Search</button>
+                    <button class="search-button" type="submit">Search</button>
 
                 </form>
 
-                <br>
+                <br class="location-break">
 
-                <button id="currentLocationBtn" type="button">
+                <button id="currentLocationBtn" class="current-location-button" type="button">
                     📍 My Current Location
                 </button>
 
             </div>
 
-            <br>
+            <br class="map-break">
 
             <!-- Google Maps -->
             <iframe
                 id="map"
+                class="map-frame"
                 src="https://www.google.com/maps?q=Ghaziabad%2C%20Uttar%20Pradesh&output=embed"
                 width="600"
                 height="450"
