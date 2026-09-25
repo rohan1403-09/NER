@@ -8,43 +8,199 @@
 <body>
 
     <main>
-        <h1>Welcome to Trail Sense</h1>
-        <h1><b>STAY AWARE,</b></h1>
-        <h1><b>STAY PREPARED...</b></h1>
 
-        <p><i><b>An AI-Based early warning system for Landslides and Road Blockages.</b></i></p>
+        <section id="signInSection">
+            <h1>Welcome to Trail Sense</h1>
+            <h1><b>STAY AWARE,</b></h1>
+            <h1><b>STAY PREPARED...</b></h1>
 
-       <section class="Sign in">
-    <form action="otp.html" method="get">
+            <p><i><b>An AI-Based early warning system for Landslides and Road Blockages.</b></i></p>
 
-        <div class="form">
-            <h2>Sign in</h2>
+            <section class="Sign in">
+                <form id="signInForm">
 
-            <input type="email" placeholder="Email" required>
+                    <div class="form">
+                        <h2>Sign in</h2>
 
-            <input type="password" placeholder="Password" required>
+                        <input type="email" placeholder="Email" required>
 
-            <div class="phone-number">
-                <h2>Enter a 10 digit valid phone number</h2>
-                <input type="tel"
-                placeholder="Phone number"
-                pattern="[0-9]{10}"
-                maxlength="10"
-                required>
+                        <input type="password" placeholder="Password" required>
+
+                        <div class="phone-number">
+                            <h2>Enter a 10 digit valid phone number</h2>
+                            <input type="tel"
+                            placeholder="Phone number"
+                            pattern="[0-9]{10}"
+                            maxlength="10"
+                            required>
+                        </div>
+                        <div class="Location">
+                            <h2>Enter your location</h2>
+                            <input type="text" placeholder="Location" required>
+                        </div>
+                        <div class="submit">
+                            <button type="submit">Submit</button>
+                        </div>
+
+                    </div>
+
+                </form>
+            </section>
+            <section></section>
+        </section>
+
+        <section id="otpSection" hidden>
+            <h1>OTP Verification</h1>
+            <p>Please enter the OTP sent to your phone number.</p>
+            <form id="otpForm">
+                <input
+                    type="text"
+                    id="otpInput"
+                    placeholder="Enter OTP"
+                    inputmode="numeric"
+                    pattern="[0-9]{6}"
+                    maxlength="6"
+                    required
+                >
+                <button type="submit">Verify OTP</button>
+            </form>
+        </section>
+
+        <section id="dashboardSection" hidden>
+            <h1>NIR</h1>
+            <p>Nature | Inform | Respond</p>
+
+            <!-- Notification Section -->
+            <div class="notification">
+
+                <button type="button">Notification</button>
+
+                <i><p>Real time disaster alerts</p></i>
+                <i><p>For safer you and safer planet</p></i>
+
+                <span>RAINFALL <b>16.8 mm/hr</b></span>
+                <span>SOIL MOISTURE <b>68%</b></span>
+
             </div>
-            <div class="Location">
-            <h2>Enter your location</h2>
-            <input type="text" placeholder="Location" required>
-            </div>
-            <div class="submit">
-            <button type="submit">Submit</button>
+
+            <!-- Location Search -->
+            <div class="location-search">
+
+                <h2>Search Location</h2>
+
+                <form id="locationForm">
+
+                    <input
+                        type="text"
+                        id="locationInput"
+                        placeholder="Search for location"
+                        required
+                    >
+
+                    <button type="submit">Search</button>
+
+                </form>
+
+                <br>
+
+                <button id="currentLocationBtn" type="button">
+                    📍 My Current Location
+                </button>
+
             </div>
 
-        </div>
+            <br>
 
-    </form>
-</section>
+            <!-- Google Maps -->
+            <iframe
+                id="map"
+                src="https://www.google.com/maps?q=Ghaziabad%2C%20Uttar%20Pradesh&output=embed"
+                width="600"
+                height="450"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy">
+            </iframe>
+        </section>
+
     </main>
+
+    <script>
+        const signInSection = document.getElementById("signInSection");
+        const signInForm = document.getElementById("signInForm");
+        const otpSection = document.getElementById("otpSection");
+        const otpForm = document.getElementById("otpForm");
+        const otpInput = document.getElementById("otpInput");
+        const dashboardSection = document.getElementById("dashboardSection");
+        const validOtp = "123456";
+
+        signInForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            signInSection.hidden = true;
+            otpSection.hidden = false;
+            otpInput.focus();
+        });
+
+        otpForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            if (otpInput.value.trim() !== validOtp) {
+                alert("Invalid OTP. Please try again.");
+                otpInput.focus();
+                return;
+            }
+
+            otpSection.hidden = true;
+            dashboardSection.hidden = false;
+        });
+
+        const locationForm = document.getElementById("locationForm");
+        const locationInput = document.getElementById("locationInput");
+        const map = document.getElementById("map");
+        const currentLocationBtn = document.getElementById("currentLocationBtn");
+
+        // Search Location
+        locationForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const location = locationInput.value.trim();
+
+            if (location === "") {
+                return;
+            }
+
+            map.src =
+                "https://www.google.com/maps?q=" +
+                encodeURIComponent(location) +
+                "&output=embed";
+        });
+
+        // Get Current Location
+        currentLocationBtn.addEventListener("click", function () {
+            if (!navigator.geolocation) {
+                alert("Geolocation is not supported by your browser.");
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+
+                    // Show current location on Google Maps
+                    map.src =
+                        "https://www.google.com/maps?q=" +
+                        latitude + "," + longitude +
+                        "&output=embed";
+                },
+                function (error) {
+                    alert(
+                        "Unable to access your location. Please allow location permission."
+                    );
+                }
+            );
+        });
+    </script>
 
 </body>
 </html>
