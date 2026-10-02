@@ -41,6 +41,10 @@
                         </div>
                         <div class="submit submit-field">
                             <button class="submit-button" type="submit">Submit</button>
+                        <div class="login">
+                            <button id="openLoginButton" class="login-button" type="button">Login</button>
+                            
+                        </div>
                         </div>
 
                     </div>
@@ -50,9 +54,25 @@
             <section class="signin-extra"></section>
         </section>
 
+        <section id="loginSection" class="login-section" hidden>
+            <button id="backToSignInButton" class="login-back-button" type="button">Back to sign in</button>
+            <p class="login-eyebrow">TRAIL SENSE</p>
+            <h1 class="login-title">Welcome back</h1>
+            <p class="login-description">Enter your name and mobile number to continue.</p>
+            <form id="loginForm" class="login-form">
+                <label for="loginNameInput">Name</label>
+                <input id="loginNameInput" name="name" type="text" autocomplete="name" placeholder="Your name" required>
+
+                <label for="loginPhoneInput">Mobile number</label>
+                <input id="loginPhoneInput" name="phone" type="tel" autocomplete="tel-national" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" placeholder="10-digit mobile number" required>
+
+                <button class="login-submit-button" type="submit">Continue</button>
+            </form>
+        </section>
+
         <section id="otpSection" class="otp-section" hidden>
             <h1 class="otp-heading">OTP Verification</h1>
-            <p class="otp-instructions">Please enter the OTP sent to your phone number.</p>
+            <p class="otp-instructions">Demo mode: enter 123456 to continue. No SMS is sent.</p>
             <form id="otpForm" class="otp-form">
                 <input
                     class="otp-input"
@@ -129,5 +149,8 @@
 
     </main>
 
-  </body>
+        <script src="app.js"></script>
+        <script src="otp.js"></script>
+        <script src="dashboard.js"></script>
+</body>
 </html>
