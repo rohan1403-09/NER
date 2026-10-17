@@ -1,0 +1,222 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    background: #2b2f2e;
+    background-image: url('karsten-wurth-7BjhtdogU3A-unsplash.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+html::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.page-main {
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.signin-section {
+    width: 100%;
+    min-height: 100vh;
+    padding: 32px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    color: white;
+}
+
+.signin-content {
+    margin: auto;
+    width: 360px;
+    max-width: 100%;
+    padding: 28px 30px;
+    background: rgba(4, 6, 5, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 14px;
+    -webkit-backdrop-filter: blur(7px);
+    backdrop-filter: blur(7px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+/* Input Fields - Glassmorphism */
+.email-input,
+.password-input,
+.phone-input,
+.location-input,
+.otp-input,
+.location-search-input,
+#loginNameInput,
+#loginPhoneInput {
+    width: 100%;
+    padding: 12px 16px;
+    margin: 8px 0;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    color: white;
+    font-size: 15px;
+    font-family: inherit;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.email-input::placeholder,
+.password-input::placeholder,
+.phone-input::placeholder,
+.location-input::placeholder,
+.otp-input::placeholder,
+.location-search-input::placeholder,
+#loginNameInput::placeholder,
+#loginPhoneInput::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.email-input:focus,
+.password-input:focus,
+.phone-input:focus,
+.location-input:focus,
+.otp-input:focus,
+.location-search-input:focus,
+#loginNameInput:focus,
+#loginPhoneInput:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 0 12px rgba(255, 255, 255, 0.15);
+}
+
+[hidden] {
+    display: none !important;
+}
+
+.form-error {
+    color: #ff8a80;
+    font-size: 0.9rem;
+    margin: 0.5rem 0 0;
+}
+
+/* Main Sign-in Page Buttons - Smaller */
+.signin-section .submit-button,
+.signin-section .login-button {
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 12px;
+    color: white;
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(11px);
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    transition: background 0.25s ease, transform 0.15s ease, border-color 0.25s ease;
+}
+
+.signin-section .submit-button:hover,
+.signin-section .login-button:hover {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.55);
+}
+
+.signin-section .submit-button:active,
+.signin-section .login-button:active {
+    transform: scale(0.97);
+}
+
+/* Other Page Buttons - Normal Size */
+.login-back-button,
+.login-submit-button,
+.verify-otp-button,
+.notification-button,
+.search-button,
+.current-location-button {
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 12px;
+    color: white;
+    font-size: 15px;
+    font-family: inherit;
+    cursor: pointer;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(11px);
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    transition: background 0.25s ease, transform 0.15s ease, border-color 0.25s ease;
+}
+
+.login-back-button:hover,
+.login-submit-button:hover,
+.verify-otp-button:hover,
+.notification-button:hover,
+.search-button:hover,
+.current-location-button:hover {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.55);
+}
+
+.login-back-button:active,
+.login-submit-button:active,
+.verify-otp-button:active,
+.notification-button:active,
+.search-button:active,
+.current-location-button:active {
+    transform: scale(0.97);
+}
+
+/* Focus states for all buttons */
+.signin-section .submit-button:focus-visible,
+.signin-section .login-button:focus-visible,
+.login-back-button:focus-visible,
+.login-submit-button:focus-visible,
+.verify-otp-button:focus-visible,
+.notification-button:focus-visible,
+.search-button:focus-visible,
+.current-location-button:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 2px;
+}
+
+.submit-field {
+    display: flex;
+    gap: 12px;
+    margin-top: 6px;
+}
+
+.submit-field .login {
+    order: -1;
+    flex: 1;
+}
+
+.submit-field .submit-button {
+    flex: 1;
+}
+
+.submit-field .login-button {
+    width: 100%;
+}
