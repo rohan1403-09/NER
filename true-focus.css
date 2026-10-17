@@ -1,0 +1,67 @@
+/* Vanilla port of React Bits <TrueFocus />.
+   Words blur except the active one, and a corner frame moves between them. */
+
+.true-focus {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.3em;
+    user-select: none;
+    --tf-duration: 0.5s;
+    --tf-border: #7dd3fc;
+    --tf-glow: rgba(125, 211, 252, 0.6);
+}
+
+.tf-word {
+    position: relative;
+    cursor: default;
+    transition: filter var(--tf-duration) ease;
+}
+
+.tf-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+    box-sizing: content-box;
+    border: none;
+    will-change: transform, width, height;
+}
+
+/* turned on after the first measurement so the frame doesn't fly in from the corner */
+.tf-frame.is-ready {
+    opacity: 1;
+    transition:
+        transform var(--tf-duration) ease,
+        width var(--tf-duration) ease,
+        height var(--tf-duration) ease,
+        opacity 0.2s ease;
+}
+
+.tf-corner {
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    border: 3px solid var(--tf-border);
+    border-radius: 3px;
+    filter: drop-shadow(0 0 4px var(--tf-border));
+}
+
+.tf-corner.top-left     { top: -10px;    left: -10px;  border-right: none; border-bottom: none; }
+.tf-corner.top-right    { top: -10px;    right: -10px; border-left: none;  border-bottom: none; }
+.tf-corner.bottom-left  { bottom: -10px; left: -10px;  border-right: none; border-top: none; }
+.tf-corner.bottom-right { bottom: -10px; right: -10px; border-left: none;  border-top: none; }
+
+@media (prefers-reduced-motion: reduce) {
+    .tf-word {
+        filter: none !important;
+        transition: none;
+    }
+    .tf-frame.is-ready {
+        transition: none;
+    }
+}
