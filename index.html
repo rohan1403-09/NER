@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trail Sense</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="border-glow.css">
+    <link rel="stylesheet" href="true-focus.css">   
+
 </head>
-<body class="page-body">
 
     <main class="page-main">
 
@@ -23,21 +25,28 @@
                     <div class="signin-fields">
                         <h2 class="signin-heading">Sign in</h2>
 
-                        <input class="email-input" type="email" placeholder="Email" required>
+                        <input class="email-input" id="signInEmail" name="email" type="email"
+                               autocomplete="email" aria-label="Email" placeholder="Email" required>
 
-                        <input class="password-input" type="password" placeholder="Password" required>
+                        <input class="password-input" id="signInPassword" name="password" type="password"
+                               autocomplete="current-password" aria-label="Password" placeholder="Password" required>
 
                         <div class="phone-number phone-field">
                             <h2 class="phone-heading"><span class="phone-heading-text">Enter a 10 digit valid phone number</span></h2>
-                            <input class="phone-input" type="tel"
-                            placeholder="Phone number"
-                            pattern="[0-9]{10}"
-                            maxlength="10"
-                            required>
+                            <input class="phone-input" id="signInPhone" name="phone" type="tel"
+                                   autocomplete="tel-national" inputmode="numeric"
+                                   aria-label="Phone number"
+                                   placeholder="Phone number"
+                                   pattern="[0-9]{10}"
+                                   title="Enter exactly 10 digits"
+                                   maxlength="10"
+                                   required>
                         </div>
                         <div class="Location location-field">
                             <h2 class="location-input-heading"><span class="location-input-heading-text">Enter your location</span></h2>
-                            <input class="location-input" type="text" placeholder="Location" required>
+                            <input class="location-input" id="signInLocation" name="location" type="text"
+                                   autocomplete="address-level2" aria-label="Location"
+                                   placeholder="Location" required>
                         </div>
                         <div class="submit submit-field">
                             <button class="submit-button" type="submit">Submit</button>
@@ -64,7 +73,7 @@
                 <input id="loginNameInput" name="name" type="text" autocomplete="name" placeholder="Your name" required>
 
                 <label for="loginPhoneInput">Mobile number</label>
-                <input id="loginPhoneInput" name="phone" type="tel" autocomplete="tel-national" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" placeholder="10-digit mobile number" required>
+                <input id="loginPhoneInput" name="phone" type="tel" autocomplete="tel-national" inputmode="numeric" pattern="[0-9]{10}" title="Enter exactly 10 digits" maxlength="10" placeholder="10-digit mobile number" required>
 
                 <button class="login-submit-button" type="submit">Continue</button>
             </form>
@@ -77,13 +86,18 @@
                     class="otp-input"
                     type="text"
                     id="otpInput"
+                    name="otp"
                     placeholder="Enter OTP"
+                    aria-label="One-time password"
                     inputmode="numeric"
+                    autocomplete="one-time-code"
                     pattern="[0-9]{6}"
+                    title="Enter the 6-digit OTP"
                     maxlength="6"
                     required
                 >
                 <button class="verify-otp-button" type="submit">Verify OTP</button>
+                <p id="otpError" class="form-error" role="alert" aria-live="polite" hidden></p>
             </form>
         </section>
 
@@ -99,6 +113,7 @@
                 <i class="alert-message"><p class="alert-text">Real time disaster alerts</p></i>
                 <i class="safety-message"><p class="safety-text">For safer you and safer planet</p></i>
 
+                <!-- Placeholder values for the prototype; replace with live data when the API is ready -->
                 <span class="rainfall-value"><b class="rainfall-label">RAINFALL</b> <b class="rainfall-reading">16.8 mm/hr</b></span>
                 <span class="soil-moisture-value"><b class="soil-moisture-label">SOIL MOISTURE</b> <b class="soil-moisture-reading">68%</b></span>
 
@@ -115,6 +130,8 @@
                         class="location-search-input"
                         type="text"
                         id="locationInput"
+                        name="location"
+                        aria-label="Search for location"
                         placeholder="Search for location"
                         required
                     >
@@ -122,6 +139,8 @@
                     <button class="search-button" type="submit">Search</button>
 
                 </form>
+
+                <p id="locationError" class="form-error" role="alert" aria-live="polite" hidden></p>
 
                 <br class="location-break">
 
@@ -137,19 +156,23 @@
             <iframe
                 id="map"
                 class="map-frame"
+                title="Map of the selected location"
                 src="https://www.google.com/maps?q=Ghaziabad%2C%20Uttar%20Pradesh&output=embed"
                 width="600"
                 height="450"
                 style="border:0;"
                 allowfullscreen=""
-                loading="lazy">
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
             </iframe>
         </section>
 
     </main>
 
-        <script src="app.js"></script>
-        <script src="otp.js"></script>
-        <script src="dashboard.js"></script>
+    <script src="app.js" defer></script>
+    <script src="otp.js" defer></script>
+    <script src="dashboard.js" defer></script>
+    <script src="border-glow.js" defer></script>
+    <script src="true-focus.js" defer></script>
 </body>
 </html>
