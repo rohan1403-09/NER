@@ -1,43 +1,71 @@
-const locationForm = document.getElementById("locationForm");
-const locationInput = document.getElementById("locationInput");
-const map = document.getElementById("map");
-const currentLocationBtn = document.getElementById("currentLocationBtn");
+(function () {
+    const locationForm = document.getElementById("locationForm");
+    const locationInput = document.getElementById("locationInput");
+    const locationError = document.getElementById("locationError");
+    const map = document.getElementById("map");
+    const currentLocationBtn = document.getElementById("currentLocationBtn");
 
-locationForm.addEventListener("submit", function (event) {
-    event.preventDefault();
+    const MAP_BASE = "https://www.google.com/maps?q=";
 
-    const location = locationInput.value.trim();
-
-    if (location === "") {
-        return;
+    function showError(message) {
+        locationError.textContent = message;
+        locationError.hidden = false;
     }
 
-    map.src =
-        "https://www.google.com/maps?q=" +
-        encodeURIComponent(location) +
-        "&output=embed";
-});
-
-currentLocationBtn.addEventListener("click", function () {
-    if (!navigator.geolocation) {
-        alert("Geolocation is not supported by your browser.");
-        return;
+    function clearError() {
+        locationError.textContent = "";
+        locationError.hidden = true;
     }
 
-    navigator.geolocation.getCurrentPosition(
-        function (position) {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
+    locationInput.addEventListener("input", clearError);
 
-            map.src =
-                "https://www.google.com/maps?q=" +
-                latitude + "," + longitude +
-                "&output=embed";
-        },
-        function () {
-            alert(
-                "Unable to access your location. Please allow location permission."
-            );
+    locationForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        clearError();
+
+        const location = locationInput.value.trim();
+
+        if (location === "") {
+            return;
         }
-    );
-});
+
+        map.src = MAP_BASE + encodeURIComponent(location) + "&output=embed";
+    });
+
+    currentLocationBtn.addEventListener("click", function () {
+        clearError();
+
+        if (!navigator.geolocation) {
+            showError("Geolocation is not supported by your browser.");
+            return;
+        }
+
+        currentLocationBtn.disabled = true;
+
+        navigator.geolocation.getCurrentPosition(
+            function (position) {
+                currentLocationBtn.disabled = false;
+
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
+                map.src =
+                    MAP_BASE +
+                    encodeURIComponent(latitude + "," + longitude) +
+                    "&output=embed";
+            },
+            function (error) {
+                currentLocationBtn.disabled = false;
+
+                if (error.code === error.PERMISSION_DENIED) {
+                    showError("Location permission was denied. Please allow it in your browser settings.");
+                } else if (error.code === error.TIMEOUT) {
+                    showError("Finding your location took too long. Please try again.");
+                } else {
+                    showError("Your location is currently unavailable. Please try again.");
+                }
+            },
+            { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 }
+        );
+    });
+})();
