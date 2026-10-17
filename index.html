@@ -1,178 +1,38 @@
-<!DOCTYPE html>
-<html class="page" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trail Sense</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="border-glow.css">
-    <link rel="stylesheet" href="true-focus.css">   
+(function () {
+    const otpForm = document.getElementById("otpForm");
+    const otpInput = document.getElementById("otpInput");
+    const otpError = document.getElementById("otpError");
+    const otpSection = document.getElementById("otpSection");
+    const dashboardSection = document.getElementById("dashboardSection");
 
-</head>
+    // TEMP (prototype): hard-coded test OTP.
+    // Replace with a call to the backend verification endpoint when it is available.
+    const TEST_OTP = "123456";
 
-    <main class="page-main">
+    function showError(message) {
+        otpError.textContent = message;
+        otpError.hidden = false;
+    }
 
-        <section id="signInSection" class="signin-section">
-            <h1 class="welcome-heading">Welcome to Trail Sense</h1>
-            <h1 class="aware-line"><b class="aware-text">STAY AWARE,</b></h1>
-            <h1 class="prepared-line"><b class="prepared-text">STAY PREPARED...</b></h1>
+    function clearError() {
+        otpError.textContent = "";
+        otpError.hidden = true;
+    }
 
-            <p class="intro-text"><i class="intro-italic"><b class="intro-bold">An AI-Based early warning system for Landslides and Road Blockages.</b></i></p>
+    otpInput.addEventListener("input", clearError);
 
-            <section class="signin-content">
-                <form id="signInForm" class="signin-form">
+    otpForm.addEventListener("submit", function (event) {
+        event.preventDefault();
 
-                    <div class="signin-fields">
-                        <h2 class="signin-heading">Sign in</h2>
+        if (otpInput.value.trim() !== TEST_OTP) {
+            showError("Invalid OTP. Please try again.");
+            otpInput.value = "";
+            otpInput.focus();
+            return;
+        }
 
-                        <input class="email-input" id="signInEmail" name="email" type="email"
-                               autocomplete="email" aria-label="Email" placeholder="Email" required>
-
-                        <input class="password-input" id="signInPassword" name="password" type="password"
-                               autocomplete="current-password" aria-label="Password" placeholder="Password" required>
-
-                        <div class="phone-number phone-field">
-                            <h2 class="phone-heading"><span class="phone-heading-text">Enter a 10 digit valid phone number</span></h2>
-                            <input class="phone-input" id="signInPhone" name="phone" type="tel"
-                                   autocomplete="tel-national" inputmode="numeric"
-                                   aria-label="Phone number"
-                                   placeholder="Phone number"
-                                   pattern="[0-9]{10}"
-                                   title="Enter exactly 10 digits"
-                                   maxlength="10"
-                                   required>
-                        </div>
-                        <div class="Location location-field">
-                            <h2 class="location-input-heading"><span class="location-input-heading-text">Enter your location</span></h2>
-                            <input class="location-input" id="signInLocation" name="location" type="text"
-                                   autocomplete="address-level2" aria-label="Location"
-                                   placeholder="Location" required>
-                        </div>
-                        <div class="submit submit-field">
-                            <button class="submit-button" type="submit">Submit</button>
-                        <div class="login">
-                            <button id="openLoginButton" class="login-button" type="button">Login</button>
-                            
-                        </div>
-                        </div>
-
-                    </div>
-
-                </form>
-            </section>
-            <section class="signin-extra"></section>
-        </section>
-
-        <section id="loginSection" class="login-section" hidden>
-            <button id="backToSignInButton" class="login-back-button" type="button">Back to sign in</button>
-            <p class="login-eyebrow">TRAIL SENSE</p>
-            <h1 class="login-title">Welcome back</h1>
-            <p class="login-description">Enter your name and mobile number to continue.</p>
-            <form id="loginForm" class="login-form">
-                <label for="loginNameInput">Name</label>
-                <input id="loginNameInput" name="name" type="text" autocomplete="name" placeholder="Your name" required>
-
-                <label for="loginPhoneInput">Mobile number</label>
-                <input id="loginPhoneInput" name="phone" type="tel" autocomplete="tel-national" inputmode="numeric" pattern="[0-9]{10}" title="Enter exactly 10 digits" maxlength="10" placeholder="10-digit mobile number" required>
-
-                <button class="login-submit-button" type="submit">Continue</button>
-            </form>
-        </section>
-
-        <section id="otpSection" class="otp-section" hidden>
-            <h1 class="otp-heading">OTP Verification</h1>
-            <form id="otpForm" class="otp-form">
-                <input
-                    class="otp-input"
-                    type="text"
-                    id="otpInput"
-                    name="otp"
-                    placeholder="Enter OTP"
-                    aria-label="One-time password"
-                    inputmode="numeric"
-                    autocomplete="one-time-code"
-                    pattern="[0-9]{6}"
-                    title="Enter the 6-digit OTP"
-                    maxlength="6"
-                    required
-                >
-                <button class="verify-otp-button" type="submit">Verify OTP</button>
-                <p id="otpError" class="form-error" role="alert" aria-live="polite" hidden></p>
-            </form>
-        </section>
-
-        <section id="dashboardSection" class="dashboard-section" hidden>
-            <h1 class="dashboard-heading">NIR</h1>
-            <p class="dashboard-tagline">Nature | Inform | Respond</p>
-
-            <!-- Notification Section -->
-            <div class="notification notification-section">
-
-                <button class="notification-button" type="button">Notification</button>
-
-                <i class="alert-message"><p class="alert-text">Real time disaster alerts</p></i>
-                <i class="safety-message"><p class="safety-text">For safer you and safer planet</p></i>
-
-                <!-- Placeholder values for the prototype; replace with live data when the API is ready -->
-                <span class="rainfall-value"><b class="rainfall-label">RAINFALL</b> <b class="rainfall-reading">16.8 mm/hr</b></span>
-                <span class="soil-moisture-value"><b class="soil-moisture-label">SOIL MOISTURE</b> <b class="soil-moisture-reading">68%</b></span>
-
-            </div>
-
-            <!-- Location Search -->
-            <div class="location-search location-search-section">
-
-                <h2 class="location-heading">Search Location</h2>
-
-                <form id="locationForm" class="location-form">
-
-                    <input
-                        class="location-search-input"
-                        type="text"
-                        id="locationInput"
-                        name="location"
-                        aria-label="Search for location"
-                        placeholder="Search for location"
-                        required
-                    >
-
-                    <button class="search-button" type="submit">Search</button>
-
-                </form>
-
-                <p id="locationError" class="form-error" role="alert" aria-live="polite" hidden></p>
-
-                <br class="location-break">
-
-                <button id="currentLocationBtn" class="current-location-button" type="button">
-                    📍 My Current Location
-                </button>
-
-            </div>
-
-            <br class="map-break">
-
-            <!-- Google Maps -->
-            <iframe
-                id="map"
-                class="map-frame"
-                title="Map of the selected location"
-                src="https://www.google.com/maps?q=Ghaziabad%2C%20Uttar%20Pradesh&output=embed"
-                width="600"
-                height="450"
-                style="border:0;"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </section>
-
-    </main>
-
-    <script src="app.js" defer></script>
-    <script src="otp.js" defer></script>
-    <script src="dashboard.js" defer></script>
-    <script src="border-glow.js" defer></script>
-    <script src="true-focus.js" defer></script>
-</body>
-</html>
+        clearError();
+        otpSection.hidden = true;
+        dashboardSection.hidden = false;
+    });
+})();
