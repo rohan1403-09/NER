@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html class="page" lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="true-focus.css">   
 
 </head>
+<body>
 
     <main class="page-main">
 
@@ -152,6 +153,27 @@
 
             <br class="map-break">
 
+            <p id="riskBadge" class="risk-badge" role="status"></p>
+
+            <h2 class="location-heading">Alerts for your area</h2>
+            <ul id="alertList" class="alert-list"></ul>
+
+            <h2 class="location-heading">Report a landslide or blocked road</h2>
+            <form id="reportForm" class="report-form" enctype="multipart/form-data">
+                <select name="category" aria-label="Category" required>
+                    <option value="landslide">Landslide</option>
+                    <option value="road_blockage">Road blockage</option>
+                    <option value="other">Other</option>
+                </select>
+                <textarea name="description" maxlength="1000" rows="3" placeholder="What did you see?" aria-label="Description"></textarea>
+                <input type="file" name="media" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm,video/quicktime" multiple aria-label="Photos or videos">
+                <label class="report-check"><input type="checkbox" name="attachLocation" checked> Attach my current location</label>
+                <button class="search-button" type="submit">Send report</button>
+                <p id="reportStatus" role="status" hidden></p>
+            </form>
+
+            <br class="map-break">
+
             <!-- Google Maps -->
             <iframe
                 id="map"
@@ -169,9 +191,11 @@
 
     </main>
 
+    <script src="api.js" defer></script>
     <script src="app.js" defer></script>
     <script src="otp.js" defer></script>
     <script src="dashboard.js" defer></script>
+    <script src="reports.js" defer></script>
     <script src="border-glow.js" defer></script>
     <script src="true-focus.js" defer></script>
 </body>
