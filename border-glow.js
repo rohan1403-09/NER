@@ -1,4 +1,4 @@
-(function () {
+ (function () {
     // Which elements get the glow. Add more selectors here if you want.
     const SELECTOR = ".signin-content";
 
