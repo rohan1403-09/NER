@@ -1,4 +1,4 @@
-* {
+  * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -220,3 +220,302 @@ html::before {
 .submit-field .login-button {
     width: 100%;
 }
+
+
+/* ==========================================================================
+   OTP DESIGN (added) — matches the glass style above
+
+   Option A: 6 separate digit boxes
+   <div class="otp-container">
+     <h2 class="otp-title">Enter your code</h2>
+     <p class="otp-text">We sent a 6-digit code to <strong>+91 98XXXXXX10</strong></p>
+     <div class="otp-boxes">
+       <input class="otp-input" type="text" inputmode="numeric"
+              autocomplete="one-time-code" maxlength="1" placeholder=" "
+              aria-label="Digit 1">
+       ... (6 inputs total)
+     </div>
+     <p class="form-error" hidden>That code is incorrect. Try again.</p>
+     <button class="verify-otp-button" type="button">Verify code</button>
+     <p class="otp-resend">
+       Didn't get it?
+       <button class="resend-otp-button" type="button" disabled>Resend code</button>
+       <span class="otp-timer">in 0:30</span>
+     </p>
+   </div>
+
+   Option B: keep your single .otp-input field and add the class
+   "otp-single" to it for a centered, spaced-out look.
+
+   Add .is-error or .is-success to .otp-boxes for those states.
+   ========================================================================== */
+
+.otp-container {
+    width: 100%;
+}
+
+.otp-title {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 6px;
+}
+
+.otp-text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 18px;
+}
+
+.otp-text strong {
+    color: white;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+/* Digit boxes */
+.otp-boxes {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+/* extra gap between digit 3 and 4 */
+.otp-boxes .otp-input:nth-child(3) {
+    margin-right: 8px;
+}
+
+.otp-boxes .otp-input {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 54px;
+    padding: 0;
+    margin: 8px 0;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    caret-color: white;
+    border-radius: 10px;
+}
+
+.otp-boxes .otp-input::placeholder {
+    color: transparent;
+}
+
+.otp-boxes .otp-input:focus {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.7);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        0 0 0 3px rgba(255, 255, 255, 0.18),
+        0 0 14px rgba(255, 255, 255, 0.2);
+}
+
+/* filled digit */
+.otp-boxes .otp-input:not(:placeholder-shown) {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.55);
+}
+
+/* Single-field version */
+.otp-input.otp-single {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.5em;
+    padding-left: calc(16px + 0.5em); /* balances trailing letter-spacing */
+}
+
+.otp-input.otp-single::placeholder {
+    letter-spacing: 0.2em;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+/* Error state */
+.otp-boxes.is-error {
+    animation: otp-shake 0.4s ease;
+}
+
+.otp-boxes.is-error .otp-input {
+    border-color: #ff8a80;
+    background: rgba(255, 138, 128, 0.1);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 0 12px rgba(255, 138, 128, 0.25);
+}
+
+@keyframes otp-shake {
+    0%, 100% { transform: translateX(0); }
+    20%      { transform: translateX(-6px); }
+    40%      { transform: translateX(6px); }
+    60%      { transform: translateX(-4px); }
+    80%      { transform: translateX(4px); }
+}
+
+/* Success state */
+.otp-boxes.is-success .otp-input {
+    border-color: #81e6a8;
+    background: rgba(129, 230, 168, 0.12);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 0 14px rgba(129, 230, 168, 0.3);
+    pointer-events: none;
+}
+
+/* Verify button inside the OTP block */
+.otp-container .verify-otp-button {
+    display: block;
+    width: 100%;
+    margin-top: 14px;
+}
+
+.otp-container .verify-otp-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Resend row */
+.otp-resend {
+    margin-top: 16px;
+    font-size: 13px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.resend-otp-button {
+    padding: 0;
+    background: none;
+    border: 0;
+    font: inherit;
+    font-weight: 600;
+    color: white;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+}
+
+.resend-otp-button:hover:not(:disabled) {
+    text-decoration-thickness: 2px;
+}
+
+.resend-otp-button:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+.resend-otp-button:disabled {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    cursor: not-allowed;
+}
+
+/* hide the countdown once resend is available */
+.resend-otp-button:not(:disabled) ~ .otp-timer {
+    display: none;
+}
+
+.otp-timer {
+    font-variant-numeric: tabular-nums;
+}
+
+/* Small screens */
+@media (max-width: 400px) {
+    .otp-boxes {
+        gap: 6px;
+    }
+
+    .otp-boxes .otp-input {
+        height: 48px;
+        font-size: 20px;
+    }
+
+    .otp-boxes .otp-input:nth-child(3) {
+        margin-right: 4px;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .otp-boxes.is-error {
+        animation: none;
+    }
+}
+
+/* ==========================================================================
+   Backend-connected additions: risk badge, alert list, report form
+   ========================================================================== */
+.risk-badge {
+    display: inline-block;
+    margin: 12px 0;
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.12);
+    font-size: 14px;
+    font-weight: 600;
+}
+.risk-badge:empty { display: none; }
+.risk-badge[data-level="moderate"] { border-color: #ffd166; color: #ffd166; }
+.risk-badge[data-level="high"],
+.risk-badge[data-level="critical"] { border-color: #ff8a80; color: #ff8a80; }
+.risk-badge[data-level="low"] { border-color: #81e6a8; color: #81e6a8; }
+
+.alert-list {
+    list-style: none;
+    margin: 8px 0 20px;
+    max-width: 600px;
+}
+.alert-list li {
+    margin: 8px 0;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(4, 6, 5, 0.55);
+    -webkit-backdrop-filter: blur(7px);
+    backdrop-filter: blur(7px);
+    font-size: 14px;
+    line-height: 1.4;
+}
+.alert-list li[data-level="high"],
+.alert-list li[data-level="critical"] { border-color: #ff8a80; }
+.alert-list li[data-level="moderate"] { border-color: #ffd166; }
+
+.report-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 600px;
+    margin: 8px 0 20px;
+}
+.report-form select,
+.report-form textarea,
+.report-form input[type="file"] {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    color: white;
+    font-size: 15px;
+    font-family: inherit;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+.report-form textarea { resize: vertical; min-height: 80px; }
+.report-form select option { color: #111; }
+.report-form select:focus,
+.report-form textarea:focus,
+.report-form input[type="file"]:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.55);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
+}
+.report-form .search-button { align-self: flex-start; }
+.report-form .search-button:disabled { opacity: 0.5; cursor: not-allowed; }
+.report-check { font-size: 14px; color: rgba(255, 255, 255, 0.8); }
+#reportStatus { font-size: 14px; }
