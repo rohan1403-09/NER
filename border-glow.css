@@ -1,4 +1,4 @@
-/* Vanilla port of React Bits <BorderGlow />.
+ /* Vanilla port of React Bits <BorderGlow />.
    Only adds the glow layers; your box's own background, border, radius
    and shadow stay in style.css. */
 
